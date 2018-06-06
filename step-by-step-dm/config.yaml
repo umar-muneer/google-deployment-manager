@@ -1,0 +1,8 @@
+imports:
+  - path: vm.py
+  - path: network-1.py
+  - path: firewall-1.py
+  - path: config.py
+resources:
+  - name: compute-engine-setup
+    type: config.py
