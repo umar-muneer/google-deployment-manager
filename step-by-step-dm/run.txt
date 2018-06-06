@@ -1,0 +1,3 @@
+#!/bin/bash
+gcloud deployment-manager deployments delete deployment > /dev/null
+gcloud deployment-manager deployments create deployment --config config.yaml

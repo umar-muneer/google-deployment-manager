@@ -15,7 +15,7 @@
 """Creates the virtual machine."""
 
 COMPUTE_URL_BASE = 'https://www.googleapis.com/compute/v1/'
-
+BRANCH_NAME = 'master'
 
 def GenerateConfig(context):
   """Creates the second virtual machine."""
@@ -59,7 +59,10 @@ def GenerateConfig(context):
                                     'echo "<html><header><title>Hello from ',
                                     'Deployment Manager!</title></header>',
                                     '<body><h2>Hello from $INSTANCE</h2><p>',
-                                    'Deployment Manager tells to go to hell!</p>',
+                                    'Deployment Manager tells to go to hell!',
+                                    'in the branch ',
+                                    BRANCH_NAME,
+                                    '</p>',
                                     '</body></html>" > index.html\n',
                                     'python -m SimpleHTTPServer 80\n'])
               }]
