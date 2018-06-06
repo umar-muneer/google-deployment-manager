@@ -1,9 +1,9 @@
 def GenerateConfig(context):
     resources = [{
-        'name': 'a-firewall-rule',
+        'name': context.env['name'],
         'type': 'compute.v1.firewall',
         'properties': {
-            'network': '$(ref.a-new-network.selfLink)',
+            'network': '$(ref.'+ context.properties['network']+'.selfLink)',
             'sourceRanges': ['0.0.0.0/0'],
             'allowed': [{
                 'IPProtocol': 'TCP',
