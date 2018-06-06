@@ -32,15 +32,13 @@ def GenerateConfig(context):
                                   '/machineTypes/',
                                   context.properties['machineType']]),
           'disks': [{
-              'deviceName': 'boot',
-              'type': 'PERSISTENT',
-              'boot': True,
-              'autoDelete': True,
-              'initializeParams': {
-                  'sourceImage': ''.join([COMPUTE_URL_BASE, 'projects/',
-                                          'debian-cloud/global',
-                                          '/images/family/debian-8'])
-              }
+            "kind": "compute#attachedDisk",
+            "type": "PERSISTENT",
+            "boot": True,
+            "mode": "READ_WRITE",
+            "autoDelete": True,
+            "deviceName": context.properties['disk'],
+            "source": "projects/"+context.env["project"]+"/zones/us-east1-b/disks/" + context.properties['disk']
           }],
           'networkInterfaces': [{
               'network': '$(ref.'+ context.properties['network'] +'.selfLink)',

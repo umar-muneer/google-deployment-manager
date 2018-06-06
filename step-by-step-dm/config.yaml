@@ -2,6 +2,7 @@ imports:
   - path: vm.py
   - path: network-1.py
   - path: firewall-1.py
+  - path: disk.py
   - path: config.py
 resources:
   - name: compute-engine-setup

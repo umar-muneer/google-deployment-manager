@@ -1,4 +1,5 @@
 NETWORK_NAME = 'a-new-name-of-network'
+DISK_NAME = 'disk-vmgr-1'
 def GenerateConfig(context):
     resources = [{
         'name': 'vm-1',
@@ -6,15 +7,8 @@ def GenerateConfig(context):
         'properties': {
             'machineType': 'g1-small',
             'zone': 'us-east1-b',
-            'network': NETWORK_NAME
-        }
-    }, {
-        'name': 'vm-2',
-        'type': 'vm.py',
-        'properties': {
-            'machineType': 'f1-micro',
-            'zone': 'us-east1-b',
-            'network': NETWORK_NAME
+            'network': NETWORK_NAME,
+            'disk': DISK_NAME
         }
     }, {
         'name': NETWORK_NAME,
@@ -25,5 +19,8 @@ def GenerateConfig(context):
         'properties': {
             'network': NETWORK_NAME
         }
+    }, {
+        'name': DISK_NAME,
+        'type': 'disk.py'
     }]
     return { 'resources': resources }
