@@ -48,7 +48,14 @@ def GenerateConfig(context):
                   'name': 'External NAT',
                   'type': 'ONE_TO_ONE_NAT'
               }]
-          }]
+          }],
+          'metadata': {
+              'items': [{
+                  'key': 'startup-script',
+                  'value': ''.join(['#!/bin/bash\n',
+                                    'python -m SimpleHTTPServer 80'])
+              }]
+          }
       }
   }]
   return {'resources': resources}
