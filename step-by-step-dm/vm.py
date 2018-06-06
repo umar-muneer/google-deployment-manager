@@ -40,6 +40,17 @@ def GenerateConfig(context):
             "deviceName": context.properties['disk'],
             "source": "projects/"+context.env["project"]+"/zones/us-east1-b/disks/" + context.properties['disk']
           }],
+        # 'disks': [{
+        #       'deviceName': 'boot',
+        #       'type': 'PERSISTENT',
+        #       'boot': True,
+        #       'autoDelete': True,
+        #       'initializeParams': {
+        #           'sourceImage': ''.join([COMPUTE_URL_BASE, 'projects/',
+        #                                   'debian-cloud/global',
+        #                                   '/images/family/debian-8'])
+        #       }
+        #   }],
           'networkInterfaces': [{
               'network': '$(ref.'+ context.properties['network'] +'.selfLink)',
               'accessConfigs': [{
