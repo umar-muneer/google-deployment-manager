@@ -36,35 +36,36 @@ def GenerateConfig(context):
             "type": "PERSISTENT",
             "boot": True,
             "mode": "READ_WRITE",
-            "autoDelete": True,
+            "autoDelete": False,
             "deviceName": context.properties['disk'],
-            "source": "projects/"+context.env["project"]+"/zones/us-east1-b/disks/" + context.properties['disk']
+            "source": '$(ref.'+context.properties['disk']+'.selfLink)'
           }],
           'networkInterfaces': [{
-              'network': '$(ref.'+ context.properties['network'] +'.selfLink)',
-              'accessConfigs': [{
-                  'name': 'External NAT',
-                  'type': 'ONE_TO_ONE_NAT'
-              }]
+            'kind': 'compute#networkInterface',
+            'subnetwork': 'projects/'+context.env['project']+'/regions/'+context.properties['region']+'/subnetworks/default',
+            'accessConfigs': [
+                {
+                    'kind': 'compute#accessConfig',
+                    'name': 'External NAT',
+                    'type': 'ONE_TO_ONE_NAT',
+                    'networkTier': 'PREMIUM',
+                    'natIP': context.properties['vmIP']
+                }],
+            "aliasIpRanges": []
           }],
           'metadata': {
               'items': [{
                   'key': 'startup-script',
                   'value': ''.join(['#!/bin/bash\n',
-                                    'INSTANCE=$(curl http://metadata.google.',
-                                    'internal/computeMetadata/v1/instance/',
-                                    'hostname -H "Metadata-Flavor: Google")\n',
-                                    'echo "<html><header><title>Hello from ',
-                                    'Deployment Manager!</title></header>',
-                                    '<body><h2>Hello from $INSTANCE</h2><p>',
-                                    'Deployment Manager tells to go to hell!',
-                                    'in the branch ',
-                                    BRANCH_NAME,
-                                    '</p>',
-                                    '</body></html>" > index.html\n',
-                                    'python -m SimpleHTTPServer 80\n'])
+                                    'gcloud beta runtime-config configs variables set success/my-instance success --config-name ' +context.properties['configName']])
               }]
-          }
+          },
+          "serviceAccounts": [
+            {
+                "email": "815435412714-compute@developer.gserviceaccount.com",
+                "scopes": ["https://www.googleapis.com/auth/cloud-platform"]
+            }
+        ]
       }
   }]
   return {'resources': resources}

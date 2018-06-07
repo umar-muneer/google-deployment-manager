@@ -4,6 +4,11 @@ imports:
   - path: firewall-1.py
   - path: disk.py
   - path: config.py
+  - path: resource-config.py
+  - path: waiter.py
 resources:
   - name: compute-engine-setup
     type: config.py
+    properties:
+      vmIP: 'assign natIP here'
+    

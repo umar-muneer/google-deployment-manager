@@ -4,8 +4,8 @@ def GenerateConfig(context):
         "name": context.env["name"],
         "type": "compute.v1.disk",
         "properties": {
-            "zone": "us-east1-b",
-            "type": "projects/"+context.env["project"]+"/zones/us-east1-b/diskTypes/pd-ssd",
+            "zone": context.properties["zone"],
+            "type": "projects/"+context.env["project"]+"/zones/"+context.properties["zone"]+"/diskTypes/pd-ssd",
             "sizeGb": "10",
             'sourceImage': ''.join([COMPUTE_URL_BASE, 'projects/',
                                         'debian-cloud/global',
